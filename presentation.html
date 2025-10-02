@@ -887,16 +887,19 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
                     <div>
                         <h3 class="text-2xl font-bold text-orange-400 mb-4">Agent Location</h3>
                         <p class="text-xl text-gray-300 mb-4">Agents must be placed in your project directory:</p>
-                        <pre class="bg-gray-800 p-4 rounded-lg text-base"><code>.claude/agents/your-agent-name.json</code></pre>
+                        <pre class="bg-gray-800 p-4 rounded-lg text-base"><code>.claude/agents/your-agent-name.md</code></pre>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold text-orange-400 mb-4">Example Agent Structure</h3>
-                        <pre class="bg-gray-800 p-4 rounded-lg text-sm overflow-x-auto"><code>{
-  "name": "code-reviewer",
-  "description": "Review code for bugs",
-  "tools": ["Read", "Grep", "Bash"],
-  "prompt": "Act as a senior engineer..."
-}</code></pre>
+                        <h3 class="text-2xl font-bold text-orange-400 mb-4">Example Agent (Markdown)</h3>
+                        <pre class="bg-gray-800 p-4 rounded-lg text-sm overflow-x-auto"><code>---
+name: code-reviewer
+description: Review code for bugs and issues
+tools: [Read, Grep, Edit, Bash]
+---
+
+Act as a senior engineer reviewing code.
+Check for bugs, performance issues, and
+adherence to best practices...</code></pre>
                     </div>
                 </div>
             </div>
