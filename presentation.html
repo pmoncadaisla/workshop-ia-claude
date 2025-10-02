@@ -801,7 +801,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             <h1 class="slide-title">Example: Kubernetes Integration <span class="live-demo-badge">LIVE DEMO</span></h1>
             <div class="slide-content max-w-4xl">
                  <p class="text-xl mb-4">You can ask Claude to interact with your cluster directly.</p>
-                 <pre><code>claude "Using the kubernetes tool, list all pods in the 'production' namespace that are in a CrashLoopBackOff state, then get the logs for the first one you find."</code></pre>
+                 <pre><code>claude "Using the kubernetes tool, list all pods in the 'production' namespace <br/>that are in a CrashLoopBackOff state, then get the logs for the first one you find."</code></pre>
                  <p class="text-xl my-4">Claude will generate and execute the necessary <code>kubectl</code> commands.</p>
                  <pre><code class="language-bash">> Executing: kubectl get pods -n production | grep CrashLoopBackOff
 > Executing: kubectl logs -n production pod-xyz-12345</code></pre>
