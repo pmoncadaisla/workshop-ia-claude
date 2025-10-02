@@ -864,7 +864,45 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
              </ul>
         </div>
 
-        <!-- SLIDE 28: Section Divider -->
+        <!-- SLIDE 28: Creating Custom Agents -->
+        <div class="slide">
+            <h1 class="slide-title">Building Your Own Agents</h1>
+            <div class="grid grid-cols-2 gap-12 items-start w-full max-w-6xl">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-orange-400 mb-4">Community-Built Agents</h3>
+                        <p class="text-xl text-gray-300 mb-4">Learn from existing agents created by the community:</p>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg text-gray-200 mb-2">📦 Agent Repository</h4>
+                            <a href="https://github.com/wshobson/agents" class="text-orange-400 hover:underline text-base break-all">github.com/wshobson/agents</a>
+                            <p class="text-sm text-gray-400 mt-2">Browse pre-built agents for code review, testing, documentation, and more</p>
+                        </div>
+                    </div>
+                    <div class="bg-orange-900/20 border border-orange-500/30 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-orange-400 mb-2">💡 Pro Tip</h4>
+                        <p class="text-base text-gray-300">Use Claude to help you create custom agents! Just describe what you need and Claude can generate the agent definition for you.</p>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-orange-400 mb-4">Agent Location</h3>
+                        <p class="text-xl text-gray-300 mb-4">Agents must be placed in your project directory:</p>
+                        <pre class="bg-gray-800 p-4 rounded-lg text-base"><code>.claude/agents/your-agent-name.json</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-orange-400 mb-4">Example Agent Structure</h3>
+                        <pre class="bg-gray-800 p-4 rounded-lg text-sm overflow-x-auto"><code>{
+  "name": "code-reviewer",
+  "description": "Review code for bugs",
+  "tools": ["Read", "Grep", "Bash"],
+  "prompt": "Act as a senior engineer..."
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 29: Section Divider -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <p class="text-xl text-gray-500 mb-2">SECTION 7</p>
