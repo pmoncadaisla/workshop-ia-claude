@@ -757,25 +757,41 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
         <!-- SLIDE 22: MCP Configuration -->
         <div class="slide">
             <h1 class="slide-title">Setting Up MCP</h1>
-            <div class="slide-content space-y-4 max-w-4xl text-lg">
-                <div>
-                    <h3 class="font-semibold text-xl text-gray-200 mb-2">1. Install an MCP Server (e.g., Kubernetes)</h3>
-                    <pre><code>npm install -g @claude-mcp/kubernetes</code></pre>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-6xl">
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-2xl text-orange-400 mb-4">Configuration Levels</h3>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-gray-200 mb-2">🌍 User-level</h4>
+                        <code class="text-sm text-gray-400">~/.claude/mcp.json</code>
+                        <p class="text-sm text-gray-400 mt-2">Global for all projects</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-gray-200 mb-2">📁 Project-level</h4>
+                        <code class="text-sm text-gray-400">./.claude/mcp.json</code>
+                        <p class="text-sm text-gray-400 mt-2">Specific to current project</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-gray-200 mb-2">⚡ Local/Session</h4>
+                        <code class="text-sm text-gray-400">Temporary config</code>
+                        <p class="text-sm text-gray-400 mt-2">For current session only</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="font-semibold text-xl text-gray-200 mb-2">2. Configure in <code>~/.claude/mcp.json</code></h3>
-                    <pre><code class="language-json">{
-  "servers": [
-    {
-      "name": "kubernetes",
-      "command": "claude-mcp-kubernetes"
-    }
-  ]
-}</code></pre>
-                </div>
-                 <div>
-                    <h3 class="font-semibold text-xl text-red-400 mb-2">Security Considerations</h3>
-                    <p class="text-gray-300">MCP servers execute commands. Only install and configure servers from trusted sources. Review permissions carefully.</p>
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-2xl text-orange-400 mb-4">Easy Setup with CLI</h3>
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-200 mb-2">Add MCP Server</h4>
+                        <pre class="text-sm"><code>claude mcp add kubernetes</code></pre>
+                        <p class="text-sm text-gray-400 mt-2">Claude will guide you through the configuration</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-200 mb-2">List MCP Servers</h4>
+                        <pre class="text-sm"><code>claude mcp list</code></pre>
+                        <p class="text-sm text-gray-400 mt-2">View all configured MCP servers</p>
+                    </div>
+                    <div class="bg-red-900/20 border border-red-500/30 p-4 rounded-lg mt-4">
+                        <h4 class="font-bold text-lg text-red-400 mb-2">⚠️ Security</h4>
+                        <p class="text-sm text-gray-300">MCP servers execute commands. Only use trusted sources!</p>
+                    </div>
                 </div>
             </div>
         </div>
