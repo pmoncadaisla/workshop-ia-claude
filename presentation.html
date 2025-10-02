@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code - Boost Your Productivity with AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* MasOrange Brand Colors */
+        :root {
+            --masorange-primary: #FF6900; /* Orange */
+            --masorange-secondary: #000000; /* Black */
+            --masorange-accent: #FF8533; /* Light Orange */
+            --masorange-dark: #1a1a1a; /* Very dark gray */
+            --masorange-light: #FFFFFF; /* White */
+            --masorange-gray: #666666; /* Gray */
+            --masorange-light-gray: #F5F5F5; /* Light Gray */
+            --masorange-medium-gray: #2a2a2a; /* Medium dark gray */
+        }
+
+        /* Custom styles for the presentation */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFFFFF;
+            color: #1a1a1a;
+            overflow: hidden;
+        }
+
+        body.laser-active {
+            cursor: none;
+        }
+
+        /* Laser pointer effect */
+        .laser-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.8) 0%, rgba(255, 0, 0, 0.4) 40%, rgba(255, 0, 0, 0.1) 70%, transparent 100%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.4);
+            display: none;
+        }
+
+        .laser-pointer.active {
+            display: block;
+        }
+
+        .laser-pointer::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        /* Laser trail effect */
+        .laser-trail {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 0, 0.5) 40%, rgba(255, 0, 0, 0.2) 70%, transparent 100%);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.9), 0 0 30px rgba(255, 0, 0, 0.5);
+            animation: fadeOut 2s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+        }
+
+        .slide {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 5rem 6rem;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            background: #FFFFFF;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .slide-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--masorange-primary), var(--masorange-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .slide-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #4a4a4a;
+        }
+
+        .section-divider .slide-title {
+            font-size: 4.5rem;
+            text-align: center;
+        }
+
+        .section-divider {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+        }
+
+        .section-divider .slide-title,
+        .section-divider p {
+            color: #FFFFFF !important;
+        }
+
+        .slide-content {
+            width: 100%;
+        }
+
+        .tech-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            background-image:
+                linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%),
+                linear-gradient(rgba(255, 105, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 133, 51, 0.1) 1px, transparent 1px);
+            background-size: 100% 100%, 2rem 2rem, 2rem 2rem;
+        }
+
+        .tech-bg * {
+            color: #FFFFFF !important;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #1a1a1a;
+            transition: width 0.3s ease-out;
+            z-index: 100;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #FFFFFF;
+            background: #1a1a1a;
+            z-index: 100;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            bottom: 5rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+        }
+        
+        .nav-button {
+            background-color: #1a1a1a;
+            border: 2px solid #1a1a1a;
+            color: #FFFFFF;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .nav-button:hover {
+            background-color: #FF6900;
+            border-color: #FF6900;
+            color: #FFFFFF;
+        }
+        
+        .live-demo-badge {
+            display: inline-block;
+            background-color: #FF6900;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 1rem;
+            vertical-align: middle;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 15px rgba(255, 105, 0, 0.5);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Text color overrides for white background */
+        .text-gray-200 {
+            color: #1a1a1a !important;
+        }
+        .text-gray-300 {
+            color: #2a2a2a !important;
+        }
+        .text-gray-400 {
+            color: #666666 !important;
+        }
+        .text-gray-500 {
+            color: #999999 !important;
+        }
+
+        /* Box backgrounds */
+        .bg-gray-800 {
+            background-color: #f5f5f5 !important;
+            border: 1px solid #e5e5e5 !important;
+        }
+
+        .bg-gray-800:hover {
+            background-color: #fff5eb !important;
+            border-color: #FF6900 !important;
+        }
+
+        .bg-orange-800\/50 {
+            background-color: #fff5eb !important;
+            border: 2px solid #FF6900 !important;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            color: #FF6900;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid #e5e5e5;
+        }
+        pre > code {
+            display: block;
+            padding: 1rem;
+            color: #1a1a1a;
+        }
+        pre {
+            background-color: #f5f5f5;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.5rem;
+        }
+        
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+        
+        .icon-text svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            color: var(--masorange-primary);
+        }
+        
+        /* Specific slide styles */
+        .slide .centered-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div id="progressBar" class="progress-bar"></div>
+
+    <!-- Slides Container -->
+    <main>
+        <!-- SLIDE 1: Title Slide -->
+        <div class="slide active tech-bg">
+            <div class="text-center w-full">
+                <h1 class="text-6xl font-black mb-4 leading-tight" style="background: linear-gradient(90deg, #FF6900, #FF8533); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Claude Code</h1>
+                <p class="text-4xl font-bold text-white">Boost Your Productivity with AI</p>
+                <div class="mt-12">
+                    <p class="text-2xl text-gray-400">Workshop 1: AI Tools for Cloud Engineering</p>
+                    <p class="text-lg text-gray-500 mt-2">Duration: 90 minutes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Agenda -->
+        <div class="slide">
+            <h1 class="slide-title">What We'll Cover Today</h1>
+            <div class="slide-content max-w-5xl space-y-5 text-xl">
+                <div class="flex items-start gap-4">
+                    <div class="text-orange-500 font-bold text-2xl w-12">1</div>
+                    <div>
+                        <h3 class="font-bold text-gray-200 mb-1">Introduction to AI for Engineers</h3>
+                        <p class="text-gray-400">Understanding AI as an amplifier and the importance of adoption</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="text-orange-500 font-bold text-2xl w-12">2</div>
+                    <div>
+                        <h3 class="font-bold text-gray-200 mb-1">What is Claude Code?</h3>
+                        <p class="text-gray-400">Overview of the official Anthropic CLI and its capabilities</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="text-orange-500 font-bold text-2xl w-12">3</div>
+                    <div>
+                        <h3 class="font-bold text-gray-200 mb-1">Installation & Setup</h3>
+                        <p class="text-gray-400">Getting started with Vertex AI and your GCP sandbox</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="text-orange-500 font-bold text-2xl w-12">4</div>
+                    <div>
+                        <h3 class="font-bold text-gray-200 mb-1">Terminal & VSCode Usage</h3>
+                        <p class="text-gray-400">Practical examples and workflows in your development environment</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="text-orange-500 font-bold text-2xl w-12">5</div>
+                    <div>
+                        <h3 class="font-bold text-gray-200 mb-1">Advanced Features</h3>
+                        <p class="text-gray-400">MCP servers, subagents, and extending Claude's capabilities</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="text-orange-500 font-bold text-2xl w-12">6</div>
+                    <div>
+                        <h3 class="font-bold text-gray-200 mb-1">Best Practices & Real-World Examples</h3>
+                        <p class="text-gray-400">How to use AI wisely and safely in production environments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Video -->
+        <div class="slide">
+            <div class="slide-content w-full max-w-6xl">
+                <div class="relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 1rem;"
+                        src="https://www.youtube.com/embed/8GY3sO47YYo?start=47&cc_load_policy=1"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Introduction - The AI Revolution -->
+        <div class="slide">
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div>
+                    <h1 class="slide-title">AI as an Amplifier,<br>Not a Replacement</h1>
+                    <div class="slide-content text-2xl text-gray-300 leading-relaxed space-y-6">
+                        <p>&rarr; AI is transforming software engineering daily, introducing new tools and workflows.</p>
+                        <p>&rarr; It's here to <strong style="color: #FF6900;">amplify our capabilities</strong>—handling repetitive tasks so we can focus on complex problem-solving.</p>
+                        <p>&rarr; The human factor—creativity, critical thinking, and domain expertise—remains <strong style="color: #FF8533;">crucial and irreplaceable</strong>.</p>
+                    </div>
+                </div>
+                <div>
+                    <img src="images/ai-amplifier-human.png" alt="AI amplifying human capabilities" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: The New Reality -->
+        <div class="slide">
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div>
+                    <h1 class="slide-title">Jump on the AI Train or Get Left Behind</h1>
+                    <div class="slide-content text-xl text-gray-300 space-y-6">
+                        <p>&bull; The productivity gap between AI-augmented teams and others is <strong style="color: #FF6900;">growing exponentially</strong>.</p>
+                        <p>&bull; AI proficiency is becoming an <strong style="color: #FF8533;">essential skill</strong>, just like Git or Docker.</p>
+                        <p>&bull; Adopting these tools now provides a significant <strong style="color: #FF6900;">competitive advantage</strong> for you and the team.</p>
+                    </div>
+                </div>
+                <div>
+                     <img src="images/exponential-growth-momentum.png" alt="Exponential growth and momentum" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: What AI Can Do for Engineers -->
+        <div class="slide">
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div>
+                    <h1 class="slide-title">AI Superpowers for Cloud Engineers</h1>
+                    <div class="slide-content grid grid-cols-1 gap-y-4 text-xl">
+                        <div class="icon-text"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg> Accelerate code development</div>
+                        <div class="icon-text"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg> Debug and solve problems faster</div>
+                        <div class="icon-text"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Auto-generate documentation</div>
+                        <div class="icon-text"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Learn new technologies quickly</div>
+                        <div class="icon-text"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg> Automate repetitive tasks</div>
+                        <div class="icon-text"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg> Improve code reviews</div>
+                    </div>
+                </div>
+                <div>
+                    <img src="images/ai-superpowers-bg.png" alt="AI Superpowers" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Section Divider -->
+        <div class="slide section-divider">
+             <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 1</p>
+                <h1 class="slide-title">What is Claude Code?</h1>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Claude Code Overview -->
+        <div class="slide">
+            <h1 class="slide-title">Claude Code: Your AI Pair Programmer</h1>
+            <ul class="slide-content text-2xl text-gray-300 list-disc list-inside space-y-4 max-w-4xl">
+                <li>Official Anthropic CLI for <strong style="color: #FF6900;">Claude 4.5 Sonnet</strong>.</li>
+                <li>Native integration with your local development environment.</li>
+                <li>Works where you work: <strong style="color: #FF8533;">Terminal + VSCode</strong> support.</li>
+                <li>Designed from the ground up <strong style="color: #FF6900;">specifically for engineers</strong> to be fast and context-aware.</li>
+            </ul>
+        </div>
+        
+        <!-- SLIDE 7: Why Claude Code? -->
+        <div class="slide">
+            <h1 class="slide-title">Key Capabilities</h1>
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div class="slide-content grid grid-cols-2 gap-6 text-center">
+                    <div class="bg-gray-800 p-4 rounded-lg border-2 border-transparent hover:border-orange-500 transition">
+                        <h3 class="text-lg font-bold mb-2" style="color: #FF8533;">Direct Codebase Access</h3>
+                        <p class="text-sm text-gray-400">Reads and understands your project files without copy-pasting.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border-2 border-transparent hover:border-orange-500 transition">
+                        <h3 class="text-lg font-bold mb-2" style="color: #FF8533;">Complete Project Context</h3>
+                        <p class="text-sm text-gray-400">Gains a holistic understanding of your entire repository.</p>
+                    </div>
+                     <div class="bg-gray-800 p-4 rounded-lg border-2 border-transparent hover:border-orange-500 transition">
+                        <h3 class="text-lg font-bold mb-2" style="color: #FF8533;">Command Execution</h3>
+                        <p class="text-sm text-gray-400">Can run bash commands to check status, run tests, or install dependencies.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border-2 border-transparent hover:border-orange-500 transition">
+                        <h3 class="text-lg font-bold mb-2" style="color: #FF6900;">File Editing</h3>
+                        <p class="text-sm text-gray-400">Applies suggested changes directly to your files with your approval.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border-2 border-transparent hover:border-orange-500 transition">
+                        <h3 class="text-lg font-bold mb-2" style="color: #FF6900;">MCP Tool Integration</h3>
+                        <p class="text-sm text-gray-400">Connects to external tools like Kubernetes, GitHub, and databases.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border-2 border-transparent hover:border-orange-500 transition">
+                        <h3 class="text-lg font-bold mb-2" style="color: #FF6900;">Specialized Agent System</h3>
+                        <p class="text-sm text-gray-400">Delegates complex tasks to a team of specialized subagents.</p>
+                    </div>
+                </div>
+                <div>
+                    <img src="images/capabilities-network-bg.png" alt="Capabilities Network" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Section Divider -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 2</p>
+                <h1 class="slide-title">Installation & Setup</h1>
+            </div>
+        </div>
+        
+        <!-- SLIDE 9: Prerequisites -->
+        <div class="slide">
+            <h1 class="slide-title">What You'll Need</h1>
+            <div class="slide-content max-w-2xl space-y-4 text-2xl">
+                <div class="icon-text text-gray-200"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Node.js 18 or higher</div>
+                <div class="icon-text text-gray-200"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> A compatible terminal (bash/zsh recommended)</div>
+                <div class="icon-text text-gray-200"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> GCP Sandbox project (mo-sandbox-yourname)</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9.5: GCP Sandbox Environment -->
+        <div class="slide">
+            <h1 class="slide-title">Your GCP Sandbox Environment</h1>
+            <div class="slide-content max-w-4xl space-y-4">
+                <p class="text-xl text-gray-300">Each team member has a personal sandbox project already set up:</p>
+                <div class="grid grid-cols-2 gap-6 mt-6">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-400 mb-2">Project Name</h3>
+                        <p class="text-gray-300">mo-sandbox-nombreapellido</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-400 mb-2">Vertex AI API</h3>
+                        <p class="text-gray-300">Already enabled ✓</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-400 mb-2">Roles</h3>
+                        <p class="text-gray-300">roles/aiplatform.user<br>roles/owner</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-400 mb-2">Budget</h3>
+                        <p class="text-gray-300">500€ with alerts</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-400 mt-4">📚 Documentation: <a href="https://github.com/masmovil/infrastructure/blob/master/gcp/sandbox/README.md" class="text-orange-400 underline">github.com/masmovil/infrastructure</a></p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Installation Steps -->
+        <div class="slide">
+            <h1 class="slide-title">Installation Steps <span class="live-demo-badge">LIVE DEMO</span></h1>
+            <div class="slide-content space-y-6 text-lg max-w-4xl">
+                <div>
+                    <h3 class="font-bold text-2xl text-gray-200 mb-2">1. Install Native Binary (macOS)</h3>
+                    <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+                    <p class="text-gray-400 text-sm mt-2">Beta version with better performance than npm package</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-2xl text-gray-200 mb-2">2. Configure Vertex AI Environment Variables</h3>
+                    <p class="text-gray-300 mb-2">Add to your shell config file (.bashrc, .zshrc, etc.):</p>
+                    <pre><code>export CLAUDE_CODE_USE_VERTEX=1
+export CLOUD_ML_REGION=global
+export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
+                    <p class="text-orange-400 mt-2 font-semibold">⚠️ We use API billing through Vertex AI, not Claude subscription</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-2xl text-gray-200 mb-2">3. Authenticate with GCP</h3>
+                    <pre><code>gcloud auth application-default login</code></pre>
+                </div>
+                <div>
+                    <h3 class="font-bold text-2xl text-gray-200 mb-2">4. Start Claude Code</h3>
+                    <pre><code>claude</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Section Divider -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 3</p>
+                <h1 class="slide-title">Terminal Usage</h1>
+            </div>
+        </div>
+        
+        <!-- SLIDE 12: Basic Commands -->
+        <div class="slide">
+            <h1 class="slide-title">Claude Code CLI Basics</h1>
+            <div class="slide-content max-w-4xl text-lg">
+                <div class="grid grid-cols-[1fr,2fr] gap-4 bg-gray-800 rounded-lg p-4">
+                    <div class="font-mono p-2" style="color: #FF6900; font-weight: 600;">claude</div>
+                    <div class="text-gray-300 p-2">Starts a new interactive chat session in the current directory.</div>
+                    <div class="font-mono p-2 border-t" style="color: #FF6900; font-weight: 600; border-color: #e5e5e5;">claude "your question"</div>
+                    <div class="text-gray-300 p-2 border-t" style="border-color: #e5e5e5;">Runs a single command and prints the output without starting a session.</div>
+                    <div class="font-mono p-2 border-t" style="color: #FF6900; font-weight: 600; border-color: #e5e5e5;">claude --help</div>
+                    <div class="text-gray-300 p-2 border-t" style="border-color: #e5e5e5;">Displays a list of all available commands and options.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 13: Terminal Capabilities -->
+        <div class="slide">
+            <h1 class="slide-title">What You Can Do in Terminal</h1>
+            <div class="slide-content grid grid-cols-2 gap-x-12 gap-y-6 text-xl max-w-4xl">
+                <div class="bg-gray-800 p-4 rounded-lg">Read project files</div>
+                <div class="bg-gray-800 p-4 rounded-lg">Search entire codebase</div>
+                <div class="bg-orange-800/50 p-4 rounded-lg text-orange-300">Execute bash commands</div>
+                <div class="bg-orange-800/50 p-4 rounded-lg text-orange-300">Edit files directly</div>
+                <div class="bg-gray-800 p-4 rounded-lg">Generate new code snippets</div>
+                <div class="bg-gray-800 p-4 rounded-lg">Explain complex logic</div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 14: Terminal Examples -->
+        <div class="slide">
+            <h1 class="slide-title">Practical Examples <span class="live-demo-badge">LIVE DEMO</span></h1>
+            <div class="slide-content space-y-4 max-w-5xl text-lg">
+                <div>
+                    <h3 class="font-semibold text-xl text-gray-200 mb-2">1. Project Analysis</h3>
+                    <pre style="overflow-x: auto;"><code style="font-size: 0.85rem;">claude "Summarize this project's purpose and tech stack. What's the entrypoint file?"</code></pre>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-xl text-gray-200 mb-2">2. Log Debugging</h3>
+                    <pre style="overflow-x: auto;"><code style="font-size: 0.85rem;">claude "Analyze error.log. What is the root cause of the frequent NullPointerException?"</code></pre>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-xl text-gray-200 mb-2">3. Refactoring</h3>
+                    <pre style="overflow-x: auto;"><code style="font-size: 0.85rem;">claude "Refactor the 'calculate_totals' function in 'utils.py' to be more performant and add comments."</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: Section Divider -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 4</p>
+                <h1 class="slide-title">VSCode Integration</h1>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: VSCode Extension -->
+        <div class="slide">
+            <h1 class="slide-title">Claude Code in Your Favorite IDE</h1>
+            <div class="grid grid-cols-2 gap-12 items-center w-full max-w-6xl">
+                <div>
+                    <h2 class="text-2xl font-bold mb-4 text-gray-200">Installation</h2>
+                    <ol class="list-decimal list-inside space-y-4 text-xl">
+                        <li>Open the Extensions view (Ctrl+Shift+X).</li>
+                        <li>Search for "Claude Code".</li>
+                        <li>Click "Install" on the official extension by Anthropic.</li>
+                        <li>Reload VSCode and log in via the command palette.</li>
+                    </ol>
+                </div>
+                <div class="flex items-center justify-center">
+                    <img src="images/vscode-integration-bg.png" alt="VSCode Integration" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 17: VSCode Features -->
+        <div class="slide">
+            <h1 class="slide-title">Integrated Development Experience</h1>
+             <div class="slide-content grid grid-cols-3 gap-6 max-w-6xl">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-400 mb-2">Integrated Chat</h3>
+                    <p class="text-gray-400">A sidebar chat that is fully aware of your open workspace.</p>
+                </div>
+                 <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-400 mb-2">Code Selection Context</h3>
+                    <p class="text-gray-400">Highlight code to automatically include it as context in your prompt.</p>
+                </div>
+                 <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-500 mb-2">Inline Editing</h3>
+                    <p class="text-gray-400">Generate and apply code changes directly in your editor.</p>
+                </div>
+                 <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-400 mb-2">Terminal Integration</h3>
+                    <p class="text-gray-400">Runs commands within the integrated VSCode terminal.</p>
+                </div>
+                 <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-500 mb-2">Diff View</h3>
+                    <p class="text-gray-400">Review proposed changes in a clear side-by-side diff before accepting.</p>
+                </div>
+             </div>
+        </div>
+
+        <!-- SLIDE 18: Recommended Workflow -->
+        <div class="slide">
+            <h1 class="slide-title">Recommended VSCode Workflow</h1>
+            <div class="slide-content max-w-4xl space-y-4">
+                <div class="flex items-center gap-4 text-2xl"><div class="text-white w-10 h-10 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6900;">1</div><span><strong class="text-orange-400">Select Relevant Code:</strong> Highlight the specific function or block you're working on.</span></div>
+                <div class="flex items-center gap-4 text-2xl"><div class="text-white w-10 h-10 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6900;">2</div><span><strong class="text-orange-400">Ask a Specific Question:</strong> Use the chat to ask for refactoring, explanation, or tests.</span></div>
+                <div class="flex items-center gap-4 text-2xl"><div class="text-white w-10 h-10 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6900;">3</div><span><strong class="text-orange-500">Review Suggestions:</strong> Carefully examine the proposed changes in the diff view.</span></div>
+                <div class="flex items-center gap-4 text-2xl"><div class="text-white w-10 h-10 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6900;">4</div><span><strong class="text-orange-500">Apply with Judgment:</strong> Accept the changes if they are correct and meet your standards.</span></div>
+                <div class="flex items-center gap-4 text-2xl"><div class="text-white w-10 h-10 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6900;">5</div><span><strong class="text-orange-500">Validate & Test:</strong> Always run your tests and manually validate the changes.</span></div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 19: Section Divider -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 5</p>
+                <h1 class="slide-title">Model Context Protocol (MCP)</h1>
+            </div>
+        </div>
+
+        <!-- SLIDE 20: What is MCP? -->
+        <div class="slide">
+            <h1 class="slide-title">Extending Claude's Capabilities</h1>
+             <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div class="text-xl text-gray-300 space-y-4">
+                    <p>MCP is a protocol that allows Claude Code to securely connect with <strong class="text-orange-400">external tools and services</strong>.</p>
+                    <p>It creates a powerful, <strong class="text-orange-500">extensible ecosystem</strong>, turning Claude into a central hub for your entire workflow.</p>
+                    <p>Enables direct access to databases, cloud APIs, internal services, and more.</p>
+                </div>
+                <div class="text-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-48 h-48 mx-auto text-orange-500"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                    <p class="text-gray-500 mt-2">Connect Claude to your entire toolchain.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 21: Popular MCP Servers -->
+        <div class="slide">
+            <h1 class="slide-title">MCP Server Ecosystem</h1>
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-800 p-4 rounded-lg text-center"><h3 class="font-bold text-base text-orange-400 mb-2">Kubernetes MCP</h3><p class="text-sm text-gray-400">Interact with your k8s cluster: check pods, read logs, apply manifests.</p></div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center"><h3 class="font-bold text-base text-orange-400 mb-2">Database MCP</h3><p class="text-sm text-gray-400">Run SQL queries against your databases and analyze results.</p></div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center"><h3 class="font-bold text-base text-orange-400 mb-2">GitHub MCP</h3><p class="text-sm text-gray-400">Manage repos, issues, and pull requests directly from the CLI.</p></div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center"><h3 class="font-bold text-base text-orange-400 mb-2">Slack MCP</h3><p class="text-sm text-gray-400">Send messages, read channels, and interact with your team.</p></div>
+                    <div class="bg-orange-800/50 p-4 rounded-lg text-center col-span-2"><h3 class="font-bold text-base text-orange-300 mb-2">Custom MCP</h3><p class="text-sm text-gray-300">The true power: Build your own MCP server to connect to any internal API or service!</p></div>
+                </div>
+                <div>
+                    <img src="images/mcp-ecosystem-bg.png" alt="MCP Ecosystem" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 22: MCP Configuration -->
+        <div class="slide">
+            <h1 class="slide-title">Setting Up MCP</h1>
+            <div class="slide-content space-y-4 max-w-4xl text-lg">
+                <div>
+                    <h3 class="font-semibold text-xl text-gray-200 mb-2">1. Install an MCP Server (e.g., Kubernetes)</h3>
+                    <pre><code>npm install -g @claude-mcp/kubernetes</code></pre>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-xl text-gray-200 mb-2">2. Configure in <code>~/.claude/mcp.json</code></h3>
+                    <pre><code class="language-json">{
+  "servers": [
+    {
+      "name": "kubernetes",
+      "command": "claude-mcp-kubernetes"
+    }
+  ]
+}</code></pre>
+                </div>
+                 <div>
+                    <h3 class="font-semibold text-xl text-red-400 mb-2">Security Considerations</h3>
+                    <p class="text-gray-300">MCP servers execute commands. Only install and configure servers from trusted sources. Review permissions carefully.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23: MCP Use Case -->
+        <div class="slide">
+            <h1 class="slide-title">Example: Kubernetes Integration <span class="live-demo-badge">LIVE DEMO</span></h1>
+            <div class="slide-content max-w-4xl">
+                 <p class="text-xl mb-4">You can ask Claude to interact with your cluster directly.</p>
+                 <pre><code>claude "Using the kubernetes tool, list all pods in the 'production' namespace that are in a CrashLoopBackOff state, then get the logs for the first one you find."</code></pre>
+                 <p class="text-xl my-4">Claude will generate and execute the necessary <code>kubectl</code> commands.</p>
+                 <pre><code class="language-bash">> Executing: kubectl get pods -n production | grep CrashLoopBackOff
+> Executing: kubectl logs -n production pod-xyz-12345</code></pre>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: Section Divider -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 6</p>
+                <h1 class="slide-title">Subagent System</h1>
+            </div>
+        </div>
+        
+        <!-- SLIDE 25: What are Subagents? -->
+        <div class="slide">
+            <h1 class="slide-title">Specialized Agents for Complex Tasks</h1>
+            <ul class="slide-content text-2xl text-gray-300 list-disc list-inside space-y-4 max-w-4xl">
+                <li>A team of <strong class="text-orange-400">task-specific agents</strong> working under the main Claude agent.</li>
+                <li>Enables <strong class="text-orange-500">autonomous multi-step execution</strong> for complex problems.</li>
+                <li>You can delegate a high-level goal, and the agent system will figure out the steps to achieve it.</li>
+            </ul>
+        </div>
+        
+        <!-- SLIDE 26: Agent Types -->
+        <div class="slide">
+            <h1 class="slide-title">Available Subagents</h1>
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-gray-800 p-5 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-400 mb-2">General-purpose Agent</h3>
+                        <p class="text-sm text-gray-400">Breaks down complex research and multi-step tasks into smaller, executable steps.</p>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-400 mb-2">Code-reviewer Agent</h3>
+                        <p class="text-sm text-gray-400">Performs a deep static analysis of code, checking for bugs, style violations, and security issues.</p>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-400 mb-2">Test-runner Agent</h3>
+                        <p class="text-sm text-gray-400">Finds, executes, and analyzes the results of your project's test suite.</p>
+                    </div>
+                     <div class="bg-orange-800/50 p-5 rounded-lg">
+                        <h3 class="font-bold text-lg text-orange-300 mb-2">Custom Agents</h3>
+                        <p class="text-sm text-gray-300">Define your own agents with specific goals and capabilities for your team's unique workflows.</p>
+                    </div>
+                </div>
+                <div>
+                    <img src="images/subagent-hierarchy-bg.png" alt="Subagent Hierarchy" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 27: When to Use Subagents -->
+        <div class="slide">
+            <h1 class="slide-title">Subagent Use Cases</h1>
+             <ul class="slide-content text-2xl text-gray-300 list-disc list-inside space-y-4 max-w-4xl">
+                <li><strong class="text-orange-400">Complex multi-step tasks:</strong> "Figure out why our staging deployment is failing, fix it, and redeploy."</li>
+                <li><strong class="text-orange-400">Deep codebase research:</strong> "Find all instances where we use the deprecated 'lib-v1' and create a migration plan to 'lib-v2'."</li>
+                <li><strong class="text-orange-400">Automated pipeline execution:</strong> "Run the test suite. If it passes, run the code-reviewer agent on the new changes. If that passes, create a pull request."</li>
+             </ul>
+        </div>
+
+        <!-- SLIDE 28: Section Divider -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 7</p>
+                <h1 class="slide-title">Day-to-Day Examples</h1>
+            </div>
+        </div>
+        
+        <!-- SLIDE 29: Practical Use Cases - Part 1 -->
+        <div class="slide">
+            <h1 class="slide-title">Real-World Scenarios</h1>
+            <div class="space-y-6 max-w-5xl">
+                <div class="icon-text text-xl"><svg class="text-red-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg><div><h3 class="font-bold text-gray-200">Production Debugging</h3><p class="text-gray-400">"Here are the logs from our crashed pod. Analyze them, find the root cause in the codebase, and suggest a fix."</p></div></div>
+                <div class="icon-text text-xl"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><div><h3 class="font-bold text-gray-200">Automated Code Review</h3><p class="text-gray-400">"Act as a senior engineer and review the changes in my last git commit. Check for bugs, performance issues, and adherence to our style guide."</p></div></div>
+                <div class="icon-text text-xl"><svg class="text-orange-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div><h3 class="font-bold text-gray-200">Test Writing</h3><p class="text-gray-400">"Write comprehensive unit tests for the 'user_auth.ts' file. Cover all edge cases, including invalid inputs and error handling."</p></div></div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 30: Practical Use Cases - Part 2 -->
+        <div class="slide">
+            <h1 class="slide-title">More Real-World Scenarios</h1>
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div class="space-y-5">
+                    <div class="icon-text text-lg"><svg class="text-orange-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg><div><h3 class="font-bold text-gray-200">Documentation Generation</h3><p class="text-gray-400">"Generate a README.md for this microservice. Include a project summary, setup instructions, and API endpoint documentation based on the code."</p></div></div>
+                    <div class="icon-text text-lg"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.6-2.4-3.4-4-6.2-4.2-1.5-.1-2.9.3-4.2 1-1.3.7-2.3 1.8-3 3.1-.8 1.4-.8 3.1 0 4.6.7 1.2 1.8 2.3 3.1 3s2.8 1 4.2.8c2.3-.5 4.3-2.6 4.6-5.1.1-1-.1-2.1-.5-3.1z"/><path d="M12 12V2.5l4 4-4 4V12z"/><path d="M11 21.5v-9.5l-4 4 4 4v-2.5z"/></svg><div><h3 class="font-bold text-gray-200">Infrastructure as Code</h3><p class="text-gray-400">"Write a Terraform module to provision a secure S3 bucket with versioning, encryption, and a lifecycle policy to move objects to Glacier after 90 days."</p></div></div>
+                    <div class="icon-text text-lg"><svg class="text-orange-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 17-5-5 5-5"/><path d="m6 17-5-5 5-5"/></svg><div><h3 class="font-bold text-gray-200">Code Migration</h3><p class="text-gray-400">"I need to migrate this project from Python 2 to Python 3. Analyze the codebase and provide a list of necessary changes and the refactored code."</p></div></div>
+                </div>
+                <div>
+                    <img src="images/real-world-scenarios-bg.png" alt="Real-World Scenarios" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 31: Section Divider -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <p class="text-xl text-gray-500 mb-2">SECTION 8</p>
+                <h1 class="slide-title">Best Practices</h1>
+            </div>
+        </div>
+        
+        <!-- SLIDE 32: Asking Good Questions -->
+        <div class="slide">
+            <h1 class="slide-title">How to Get Better Results</h1>
+            <ul class="slide-content text-xl text-gray-300 list-disc list-inside space-y-4 max-w-4xl">
+                <li><strong>Be specific and contextual:</strong> Instead of "fix this code," say "This code throws a TypeError when the input is null. Please add a check to handle this case."</li>
+                <li><strong>Provide examples:</strong> Give input and expected output. "Given the input `[1, 2, 3]`, this function should return `6`."</li>
+                <li><strong>Define constraints:</strong> Mention tech stack, style guides, or performance needs. "Refactor this using ES6 syntax, and it must not use any external libraries."</li>
+                <li><strong>Iterate and refine:</strong> If the first answer isn't perfect, provide feedback and ask for a revision. "That's a good start, but can you also add error logging?"</li>
+            </ul>
+        </div>
+        
+        <!-- SLIDE 33: Validation & Security -->
+        <div class="slide">
+            <h1 class="slide-title">Critical: Human Judgment Required</h1>
+            <div class="grid grid-cols-2 gap-16 items-center w-full">
+                <div class="border-4 border-red-500 rounded-lg p-8" style="background-color: rgba(255, 255, 255, 0.95);">
+                    <ul class="text-lg list-disc list-inside space-y-3">
+                        <li style="color: #b91c1c;"><strong class="font-bold">NEVER</strong> apply code without a thorough review. You are the final authority.</li>
+                        <li style="color: #b91c1c;"><strong class="font-bold">Understand every line of code</strong> you commit. If you don't understand it, ask Claude to explain it.</li>
+                        <li style="color: #b91c1c;"><strong class="font-bold">Test locally first.</strong> Always validate AI-generated code with your own tests.</li>
+                        <li style="color: #b91c1c;"><strong class="font-bold">Do not share secrets,</strong> API keys, or proprietary data in your prompts.</li>
+                        <li style="color: #b91c1c;"><strong class="font-bold">Validate for security vulnerabilities.</strong> AI can sometimes produce insecure code.</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="images/security-validation-bg.png" alt="Security and Validation" class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 34: Sustainable Productivity -->
+        <div class="slide">
+            <h1 class="slide-title">Using AI Wisely</h1>
+            <div class="slide-content text-xl text-gray-300 max-w-4xl space-y-4">
+                 <p>&rarr; Use AI to <strong class="text-orange-500">offload repetitive and boilerplate tasks</strong> (writing tests, docs, basic functions).</p>
+                 <p>&rarr; This frees you up to <strong class="text-orange-400">focus on high-value work</strong> like system design, architecture, and complex logic.</p>
+                 <p>&rarr; Actively <strong class="text-orange-500">learn from AI suggestions</strong> to improve your own skills.</p>
+                 <p>&rarr; Avoid 100% dependency. It's a tool to assist you, not replace your thinking.</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 35: Resources -->
+        <div class="slide">
+            <h1 class="slide-title">Learn More</h1>
+            <div class="grid grid-cols-3 gap-8 w-full max-w-6xl text-center">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://docs.claude.com/claude-code" alt="QR Code for Docs" class="mx-auto mb-4 rounded">
+                    <h3 class="font-bold text-lg text-orange-400">Documentation</h3>
+                    <a href="https://docs.claude.com/claude-code" class="text-sm text-gray-400 hover:underline">docs.claude.com/claude-code</a>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/anthropics/claude-code" alt="QR Code for GitHub" class="mx-auto mb-4 rounded">
+                    <h3 class="font-bold text-lg text-orange-400">GitHub</h3>
+                    <a href="https://github.com/anthropics/claude-code" class="text-sm text-gray-400 hover:underline">github.com/anthropics/claude-code</a>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://discord.gg/anthropic" alt="QR Code for Discord" class="mx-auto mb-4 rounded">
+                    <h3 class="font-bold text-lg text-orange-400">Community Discord</h3>
+                    <a href="https://discord.gg/anthropic" class="text-sm text-gray-400 hover:underline">discord.gg/anthropic</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 36: Team Assignment -->
+        <div class="slide">
+            <h1 class="slide-title">Homework for Next Session</h1>
+            <div class="slide-content max-w-2xl space-y-4 text-2xl">
+                <div class="icon-text text-gray-200"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg> Install Claude Code on your machine.</div>
+                <div class="icon-text text-gray-200"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg> Try 2-3 of the use cases from today.</div>
+                <div class="icon-text text-gray-200"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg> Share your experiences and findings in our Slack channel.</div>
+                <div class="icon-text text-gray-200"><svg class="text-orange-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg> Identify one task in your current work that could be automated.</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 37: Next Workshop -->
+        <div class="slide">
+            <h1 class="slide-title">Coming Up Next...</h1>
+             <div class="bg-gray-800/50 p-8 rounded-lg max-w-3xl">
+                <h2 class="text-2xl font-bold mb-4 text-gray-200">Workshop 2: Advanced AI Workflows</h2>
+                <ul class="slide-content text-xl text-gray-300 list-disc list-inside space-y-3">
+                    <li>Advanced Claude Code techniques & prompting.</li>
+                    <li>Building a custom MCP server for our internal tools.</li>
+                    <li>Automating team workflows (e.g., PR reviews).</li>
+                    <li>Developing specialized agents for Cloud Engineering tasks.</li>
+                </ul>
+             </div>
+        </div>
+        
+        <!-- SLIDE 38: Q&A -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <h1 class="slide-title">Questions?</h1>
+                <p class="text-lg text-gray-400">Contact: your-name@your-company.com</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 39: Thank You -->
+        <div class="slide section-divider">
+            <div class="centered-content">
+                <h1 class="slide-title">Let's Build Amazing Things<br>with AI!</h1>
+                <p class="text-2xl text-gray-400 mt-4">Thank you for attending.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div class="footer">
+        <span>Claude Code - Boost Your Productivity with AI</span>
+        <span id="slideCounter"></span>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+        <button id="prevBtn" class="nav-button">&larr; Prev</button>
+        <select id="slideSelector" class="nav-button" style="padding: 0.5rem 0.75rem; cursor: pointer;"></select>
+        <button id="nextBtn" class="nav-button">Next &rarr;</button>
+        <button id="fullscreenBtn" class="nav-button" title="Toggle Fullscreen (F)">⛶</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Laser pointer setup
+            const laserPointer = document.createElement('div');
+            laserPointer.className = 'laser-pointer';
+            document.body.appendChild(laserPointer);
+
+            let isDrawing = false;
+            let laserEnabled = false;
+
+            // Toggle laser pointer with 'p' key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'p' || e.key === 'P') {
+                    laserEnabled = !laserEnabled;
+                    if (laserEnabled) {
+                        laserPointer.classList.add('active');
+                        document.body.classList.add('laser-active');
+                    } else {
+                        laserPointer.classList.remove('active');
+                        document.body.classList.remove('laser-active');
+                        isDrawing = false;
+                    }
+                }
+            });
+
+            document.addEventListener('mousedown', () => {
+                if (laserEnabled) {
+                    isDrawing = true;
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDrawing = false;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (laserEnabled) {
+                    laserPointer.style.left = e.clientX + 'px';
+                    laserPointer.style.top = e.clientY + 'px';
+
+                    // Create trail when mouse is pressed (no throttling for maximum smoothness)
+                    if (isDrawing) {
+                        createTrailPoint(e.clientX, e.clientY);
+                    }
+                }
+            });
+
+            function createTrailPoint(x, y) {
+                const trail = document.createElement('div');
+                trail.className = 'laser-trail';
+                trail.style.left = x + 'px';
+                trail.style.top = y + 'px';
+                document.body.appendChild(trail);
+
+                // Remove trail element after animation completes
+                setTimeout(() => {
+                    trail.remove();
+                }, 2000);
+            }
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const slideSelector = document.getElementById('slideSelector');
+            const progressBar = document.getElementById('progressBar');
+            const slideCounter = document.getElementById('slideCounter');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            // Initialize slide selector
+            function initializeSelector() {
+                slides.forEach((slide, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    const title = slide.querySelector('.slide-title')?.textContent.trim().substring(0, 40) || `Slide ${index + 1}`;
+                    option.textContent = `${index + 1}. ${title}`;
+                    slideSelector.appendChild(option);
+                });
+            }
+
+            function showSlide(index, updateHistory = true) {
+                // Deactivate current slide
+                slides[currentSlide].classList.remove('active');
+
+                // Update current slide index
+                currentSlide = (index + totalSlides) % totalSlides;
+
+                // Activate new slide
+                slides[currentSlide].classList.add('active');
+
+                updateUI();
+
+                // Update URL hash
+                if (updateHistory) {
+                    history.pushState(null, null, `#slide-${currentSlide + 1}`);
+                }
+            }
+
+            function updateUI() {
+                // Update Progress Bar
+                const progress = ((currentSlide + 1) / totalSlides) * 100;
+                progressBar.style.width = `${progress}%`;
+
+                // Update Slide Counter
+                slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+
+                // Update selector
+                slideSelector.value = currentSlide;
+            }
+
+            // Event Listeners
+            nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+            prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+            slideSelector.addEventListener('change', (e) => showSlide(parseInt(e.target.value)));
+
+            // Fullscreen functionality
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            }
+
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    showSlide(currentSlide + 1);
+                } else if (e.key === 'ArrowLeft') {
+                    showSlide(currentSlide - 1);
+                } else if (e.key === 'f' || e.key === 'F') {
+                    toggleFullscreen();
+                }
+            });
+
+            // Handle hash navigation
+            function loadSlideFromHash() {
+                const hash = window.location.hash;
+                if (hash.startsWith('#slide-')) {
+                    const slideNum = parseInt(hash.replace('#slide-', '')) - 1;
+                    if (slideNum >= 0 && slideNum < totalSlides) {
+                        showSlide(slideNum, false);
+                        return;
+                    }
+                }
+                showSlide(0, false);
+            }
+
+            // Listen for hash changes
+            window.addEventListener('hashchange', () => {
+                loadSlideFromHash();
+            });
+
+            // Initial setup
+            initializeSelector();
+            loadSlideFromHash();
+        });
+    </script>
+</body>
+</html>
