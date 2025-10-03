@@ -587,8 +587,14 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
                     <div class="text-gray-300 p-2">Starts a new interactive chat session in the current directory.</div>
                     <div class="font-mono p-2 border-t" style="color: #FF6900; font-weight: 600; border-color: #e5e5e5;">claude "your question"</div>
                     <div class="text-gray-300 p-2 border-t" style="border-color: #e5e5e5;">Runs a single command and prints the output without starting a session.</div>
+                    <div class="font-mono p-2 border-t" style="color: #FF6900; font-weight: 600; border-color: #e5e5e5;">claude --headless "prompt"</div>
+                    <div class="text-gray-300 p-2 border-t" style="border-color: #e5e5e5;">Non-interactive mode for automation, scripts, and CI/CD pipelines. No terminal UI.</div>
                     <div class="font-mono p-2 border-t" style="color: #FF6900; font-weight: 600; border-color: #e5e5e5;">claude --help</div>
                     <div class="text-gray-300 p-2 border-t" style="border-color: #e5e5e5;">Displays a list of all available commands and options.</div>
+                </div>
+                <div class="bg-orange-900/20 border border-orange-500/30 p-3 rounded-lg mt-4 text-base">
+                    <span class="font-semibold text-orange-400">💡 Headless Mode Use Cases:</span>
+                    <span class="text-gray-300"> Perfect for shell scripts, git hooks, pre-commit checks, and automated workflows where you need Claude's help without user interaction.</span>
                 </div>
             </div>
         </div>
