@@ -593,34 +593,54 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 13: Terminal Capabilities -->
+        <!-- SLIDE 13: Terminal Capabilities & Examples -->
         <div class="slide">
-            <h1 class="slide-title">What You Can Do in Terminal</h1>
-            <div class="slide-content grid grid-cols-2 gap-x-12 gap-y-6 text-xl max-w-4xl">
-                <div class="bg-gray-800 p-4 rounded-lg">Read project files</div>
-                <div class="bg-gray-800 p-4 rounded-lg">Search entire codebase</div>
-                <div class="bg-orange-800/50 p-4 rounded-lg text-orange-300">Execute bash commands</div>
-                <div class="bg-orange-800/50 p-4 rounded-lg text-orange-300">Edit files directly</div>
-                <div class="bg-gray-800 p-4 rounded-lg">Generate new code snippets</div>
-                <div class="bg-gray-800 p-4 rounded-lg">Explain complex logic</div>
-            </div>
-        </div>
-        
-        <!-- SLIDE 14: Terminal Examples -->
-        <div class="slide">
-            <h1 class="slide-title">Practical Examples <span class="live-demo-badge">LIVE DEMO</span></h1>
-            <div class="slide-content space-y-4 max-w-5xl text-lg">
-                <div>
-                    <h3 class="font-semibold text-xl text-gray-200 mb-2">1. Project Analysis</h3>
-                    <pre style="overflow-x: auto;"><code style="font-size: 0.85rem;">claude "Summarize this project's purpose and tech stack. What's the entrypoint file?"</code></pre>
+            <h1 class="slide-title">Terminal Power in Action <span class="live-demo-badge">LIVE DEMO</span></h1>
+            <div class="grid grid-cols-[2fr,3fr] gap-8 w-full max-w-6xl">
+                <!-- Left: Capabilities -->
+                <div class="space-y-3">
+                    <h3 class="text-2xl font-bold text-orange-400 mb-4">Core Capabilities</h3>
+                    <div class="bg-gray-800 p-3 rounded-lg border-l-4 border-orange-400">
+                        <span class="font-semibold text-gray-200">Read & Search</span>
+                        <p class="text-sm text-gray-400">Access any file and search entire codebase</p>
+                    </div>
+                    <div class="bg-orange-800/30 p-3 rounded-lg border-l-4 border-orange-500">
+                        <span class="font-semibold text-orange-300">Execute Commands</span>
+                        <p class="text-sm text-gray-400">Run bash, kubectl, terraform, etc.</p>
+                    </div>
+                    <div class="bg-orange-800/30 p-3 rounded-lg border-l-4 border-orange-500">
+                        <span class="font-semibold text-orange-300">Edit Files</span>
+                        <p class="text-sm text-gray-400">Make direct code modifications</p>
+                    </div>
+                    <div class="bg-gray-800 p-3 rounded-lg border-l-4 border-orange-400">
+                        <span class="font-semibold text-gray-200">Generate & Explain</span>
+                        <p class="text-sm text-gray-400">Create code and explain complex logic</p>
+                    </div>
+                    <div class="bg-gray-800 p-3 rounded-lg border-l-4 border-orange-400">
+                        <span class="font-semibold text-gray-200">Debug & Analyze</span>
+                        <p class="text-sm text-gray-400">Investigate logs and trace issues</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="font-semibold text-xl text-gray-200 mb-2">2. Log Debugging</h3>
-                    <pre style="overflow-x: auto;"><code style="font-size: 0.85rem;">claude "Analyze error.log. What is the root cause of the frequent NullPointerException?"</code></pre>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-xl text-gray-200 mb-2">3. Refactoring</h3>
-                    <pre style="overflow-x: auto;"><code style="font-size: 0.85rem;">claude "Refactor the 'calculate_totals' function in 'utils.py' to be more performant and add comments."</code></pre>
+
+                <!-- Right: Practical Examples -->
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold text-orange-400 mb-4">Practical Examples</h3>
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-200 mb-2">1. Project Analysis</h4>
+                        <pre style="overflow-x: auto;"><code style="font-size: 0.8rem;">claude "Summarize this project's purpose and tech stack. What's the entrypoint file?"</code></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-200 mb-2">2. Log Debugging</h4>
+                        <pre style="overflow-x: auto;"><code style="font-size: 0.8rem;">claude "Analyze error.log. What is the root cause of the frequent NullPointerException?"</code></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-200 mb-2">3. Infrastructure Updates</h4>
+                        <pre style="overflow-x: auto;"><code style="font-size: 0.8rem;">claude "Update the Terraform config to increase the instance count from 3 to 5 and apply the changes"</code></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-200 mb-2">4. Refactoring</h4>
+                        <pre style="overflow-x: auto;"><code style="font-size: 0.8rem;">claude "Refactor 'calculate_totals' in utils.py for better performance and add comments"</code></pre>
+                    </div>
                 </div>
             </div>
         </div>
