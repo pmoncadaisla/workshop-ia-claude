@@ -683,7 +683,61 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 15: Section Divider -->
+        <!-- SLIDE 15: Memory Feature -->
+        <div class="slide">
+            <h1 class="slide-title">Claude Code Memory</h1>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-6xl">
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold text-orange-400 mb-4">How Memory Works</h3>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-base text-gray-300 mb-3">Claude Code can <strong class="text-orange-400">remember context</strong> across conversations, making interactions more efficient and personalized.</p>
+                        <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                            <li>Stores important facts, preferences, and project details</li>
+                            <li>Automatically recalls relevant information in future chats</li>
+                            <li>Reduces repetitive explanations</li>
+                            <li>Improves response quality over time</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-orange-900/20 border border-orange-500/30 p-4 rounded-lg">
+                        <h4 class="font-bold text-base text-orange-400 mb-2">💡 Memory Levels</h4>
+                        <div class="text-sm text-gray-300 space-y-1">
+                            <p><strong>User-level:</strong> Shared across all projects</p>
+                            <p><strong>Project-level:</strong> Specific to current project</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold text-orange-400 mb-4">Configuration</h3>
+                    <div class="space-y-3">
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg text-gray-200 mb-2">Enable/Disable Memory</h4>
+                            <p class="text-sm text-gray-400 mb-2">Configure in settings or via CLI:</p>
+                            <pre class="text-xs bg-gray-900 p-2 rounded"><code>claude config set memory.enabled true</code></pre>
+                        </div>
+
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg text-gray-200 mb-2">View Stored Memories</h4>
+                            <p class="text-sm text-gray-400 mb-2">Check what Claude remembers:</p>
+                            <pre class="text-xs bg-gray-900 p-2 rounded"><code>/memory</code></pre>
+                        </div>
+
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg text-gray-200 mb-2">Clear Memories</h4>
+                            <p class="text-sm text-gray-400 mb-2">Reset stored information:</p>
+                            <pre class="text-xs bg-gray-900 p-2 rounded"><code>/memory clear</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-900/20 border border-green-500/30 p-3 rounded-lg text-sm">
+                        <p class="text-gray-300"><strong class="text-green-400">Tip:</strong> You can explicitly tell Claude to remember something: "Remember that we use Python 3.11 for this project"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: Section Divider -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <p class="text-xl text-gray-500 mb-2">SECTION 4</p>
@@ -691,7 +745,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 16: VSCode Extension -->
+        <!-- SLIDE 17: VSCode Extension -->
         <div class="slide">
             <h1 class="slide-title">Claude Code in Your Favorite IDE</h1>
             <div class="grid grid-cols-2 gap-12 items-center w-full max-w-6xl">
@@ -710,7 +764,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 17: VSCode Features -->
+        <!-- SLIDE 18: VSCode Features -->
         <div class="slide">
             <h1 class="slide-title">Integrated Development Experience</h1>
              <div class="slide-content grid grid-cols-3 gap-6 max-w-6xl">
@@ -737,7 +791,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
              </div>
         </div>
 
-        <!-- SLIDE 18: Recommended Workflow -->
+        <!-- SLIDE 19: Recommended Workflow -->
         <div class="slide">
             <h1 class="slide-title">Recommended VSCode Workflow</h1>
             <div class="slide-content max-w-4xl space-y-4">
@@ -749,7 +803,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 19: Section Divider -->
+        <!-- SLIDE 20: Section Divider -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <p class="text-xl text-gray-500 mb-2">SECTION 5</p>
@@ -757,7 +811,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 20: What is MCP? -->
+        <!-- SLIDE 21: What is MCP? -->
         <div class="slide">
             <h1 class="slide-title">Extending Claude's Capabilities</h1>
              <div class="grid grid-cols-2 gap-16 items-center w-full">
@@ -773,7 +827,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 21: Popular MCP Servers -->
+        <!-- SLIDE 22: Popular MCP Servers -->
         <div class="slide">
             <h1 class="slide-title">MCP Server Ecosystem</h1>
             <div class="grid grid-cols-2 gap-16 items-center w-full">
@@ -790,7 +844,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 22: MCP Configuration -->
+        <!-- SLIDE 23: MCP Configuration -->
         <div class="slide">
             <h1 class="slide-title">Setting Up MCP</h1>
             <div class="grid grid-cols-2 gap-8 w-full max-w-6xl">
@@ -832,7 +886,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 23: MCP Secrets Management -->
+        <!-- SLIDE 24: MCP Secrets Management -->
         <div class="slide">
             <h1 class="slide-title">Managing Secrets in MCP Servers</h1>
             <div class="grid grid-cols-2 gap-8 w-full max-w-6xl">
@@ -887,7 +941,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 24: MCP Use Case -->
+        <!-- SLIDE 25: MCP Use Case -->
         <div class="slide">
             <h1 class="slide-title">Example: Kubernetes Integration <span class="live-demo-badge">LIVE DEMO</span></h1>
             <div class="slide-content max-w-4xl">
@@ -899,7 +953,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 25: Section Divider -->
+        <!-- SLIDE 26: Section Divider -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <p class="text-xl text-gray-500 mb-2">SECTION 6</p>
@@ -907,7 +961,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 26: What are Subagents? -->
+        <!-- SLIDE 27: What are Subagents? -->
         <div class="slide">
             <h1 class="slide-title">Specialized Agents for Complex Tasks</h1>
             <ul class="slide-content text-2xl text-gray-300 list-disc list-inside space-y-4 max-w-4xl">
@@ -917,7 +971,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </ul>
         </div>
         
-        <!-- SLIDE 27: Agent Types -->
+        <!-- SLIDE 28: Agent Types -->
         <div class="slide">
             <h1 class="slide-title">Available Subagents</h1>
             <div class="grid grid-cols-2 gap-16 items-center w-full">
@@ -945,7 +999,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 28: When to Use Subagents -->
+        <!-- SLIDE 29: When to Use Subagents -->
         <div class="slide">
             <h1 class="slide-title">Subagent Use Cases</h1>
              <ul class="slide-content text-2xl text-gray-300 list-disc list-inside space-y-4 max-w-4xl">
@@ -955,7 +1009,7 @@ export ANTHROPIC_VERTEX_PROJECT_ID=mo-sandbox-yourname</code></pre>
              </ul>
         </div>
 
-        <!-- SLIDE 29: Creating Custom Agents -->
+        <!-- SLIDE 30: Creating Custom Agents -->
         <div class="slide">
             <h1 class="slide-title">Building Your Own Agents</h1>
             <div class="grid grid-cols-2 gap-12 items-start w-full max-w-6xl">
@@ -996,7 +1050,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 30: Section Divider -->
+        <!-- SLIDE 31: Section Divider -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <p class="text-xl text-gray-500 mb-2">SECTION 7</p>
@@ -1004,7 +1058,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 31: Practical Use Cases - Part 1 -->
+        <!-- SLIDE 32: Practical Use Cases - Part 1 -->
         <div class="slide">
             <h1 class="slide-title">Real-World Scenarios</h1>
             <div class="space-y-6 max-w-5xl">
@@ -1017,7 +1071,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 32: Practical Use Cases - Part 2 -->
+        <!-- SLIDE 33: Practical Use Cases - Part 2 -->
         <div class="slide">
             <h1 class="slide-title">More Real-World Scenarios</h1>
             <div class="grid grid-cols-2 gap-16 items-center w-full">
@@ -1032,7 +1086,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 33: Section Divider -->
+        <!-- SLIDE 34: Section Divider -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <p class="text-xl text-gray-500 mb-2">SECTION 8</p>
@@ -1040,7 +1094,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 34: Asking Good Questions -->
+        <!-- SLIDE 35: Asking Good Questions -->
         <div class="slide">
             <h1 class="slide-title">How to Get Better Results</h1>
             <ul class="slide-content text-xl text-gray-300 list-disc list-inside space-y-4 max-w-4xl">
@@ -1052,7 +1106,7 @@ adherence to best practices...</code></pre>
             </ul>
         </div>
         
-        <!-- SLIDE 35: Validation & Security -->
+        <!-- SLIDE 36: Validation & Security -->
         <div class="slide">
             <h1 class="slide-title">Critical: Human Judgment Required</h1>
             <div class="grid grid-cols-2 gap-16 items-center w-full">
@@ -1071,7 +1125,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 36: Sustainable Productivity -->
+        <!-- SLIDE 37: Sustainable Productivity -->
         <div class="slide">
             <h1 class="slide-title">Using AI Wisely</h1>
             <div class="slide-content text-xl text-gray-300 max-w-4xl space-y-4">
@@ -1082,7 +1136,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 37: Resources -->
+        <!-- SLIDE 38: Resources -->
         <div class="slide">
             <h1 class="slide-title">Learn More</h1>
             <div class="grid grid-cols-3 gap-8 w-full max-w-6xl text-center">
@@ -1104,7 +1158,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
         
-        <!-- SLIDE 38: Team Assignment -->
+        <!-- SLIDE 39: Team Assignment -->
         <div class="slide">
             <h1 class="slide-title">Homework for Next Session</h1>
             <div class="slide-content max-w-2xl space-y-4 text-2xl">
@@ -1115,7 +1169,7 @@ adherence to best practices...</code></pre>
             </div>
         </div>
 
-        <!-- SLIDE 39: Next Workshop -->
+        <!-- SLIDE 40: Next Workshop -->
         <div class="slide">
             <h1 class="slide-title">Coming Up Next...</h1>
              <div class="bg-gray-800/50 p-8 rounded-lg max-w-3xl">
@@ -1129,14 +1183,14 @@ adherence to best practices...</code></pre>
              </div>
         </div>
         
-        <!-- SLIDE 40: Q&A -->
+        <!-- SLIDE 41: Q&A -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <h1 class="slide-title">Questions?</h1>
             </div>
         </div>
         
-        <!-- SLIDE 41: Thank You -->
+        <!-- SLIDE 42: Thank You -->
         <div class="slide section-divider">
             <div class="centered-content">
                 <h1 class="slide-title">Let's Build Amazing Things<br>with AI!</h1>
